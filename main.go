@@ -42,18 +42,18 @@ func main() {
 func GetMemUsage() {
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
-	Alloc += bToMb(m.Alloc)
-	Total += bToMb(m.TotalAlloc)
-	Sys += bToMb(m.Sys)
+	Alloc += bToKb(m.Alloc)
+	Total += bToKb(m.TotalAlloc)
+	Sys += bToKb(m.Sys)
 	Count++
 }
 
 func PrintMemUsage() {
-	fmt.Printf("Alloc = %v MiB", bToMb(Alloc/Count))
-	fmt.Printf("\tTotalAlloc = %v MiB", bToMb(Total/Count))
-	fmt.Printf("\tSys = %v MiB", bToMb(Sys/Count))
+	fmt.Printf("Alloc = %v MiB", bToKb(Alloc/Count))
+	fmt.Printf("\tTotalAlloc = %v MiB", bToKb(Total/Count))
+	fmt.Printf("\tSys = %v MiB\n", bToKb(Sys/Count))
 }
 
-func bToMb(b uint64) uint64 {
-	return b / 1024 / 1024
+func bToKb(b uint64) uint64 {
+	return b / 1024
 }
