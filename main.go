@@ -48,9 +48,9 @@ func GetMemUsage() {
 }
 
 func PrintMemUsage() {
-	fmt.Printf("Alloc = %v MiB", bToKb(Alloc/Count))
-	fmt.Printf("\tTotalAlloc = %v MiB", bToKb(Total/Count))
-	fmt.Printf("\tSys = %v MiB\n", bToKb(Sys/Count))
+	fmt.Printf("Alloc = %v KiB", bToKb(Alloc/Count))
+	fmt.Printf("\tTotalAlloc = %v KiB", bToKb(Total/Count))
+	fmt.Printf("\tSys = %v KiB\n", bToKb(Sys/Count))
 }
 
 func bToKb(b uint64) uint64 {
