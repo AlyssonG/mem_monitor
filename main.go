@@ -22,6 +22,11 @@ func main() {
 	Count = 1
 
 	args := os.Args
+	if len(args) < 3 {
+		fmt.Println("There are no parameters enough to run monitor")
+		os.Exit(1)
+	}
+
 	cmd := exec.Command(args[1], args[2:]...)
 	cmd.Stdout = os.Stdout
 
