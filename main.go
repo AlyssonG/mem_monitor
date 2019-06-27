@@ -46,7 +46,8 @@ func GetMemUsage(pid int) {
 	Alloc += bToKb(m.Alloc)
 	Total += bToKb(m.TotalAlloc)
 	Sys += bToKb(m.Sys)
-	MemUsed, _ = calculateMemory(pid)
+	mem, _ := calculateMemory(pid)
+	MemUsed += mem
 	Count++
 }
 
