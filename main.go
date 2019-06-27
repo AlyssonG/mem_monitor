@@ -26,6 +26,7 @@ func main() {
 	go func() {
 		ticker := time.NewTicker(200 * time.Millisecond)
 		for range ticker.C {
+			fmt.Println("hey")
 			GetMemUsage()
 		}
 
