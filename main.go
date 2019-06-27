@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"time"
 )
 
@@ -18,16 +19,22 @@ func main() {
 	Count = 1
 
 	args := os.Args
-	if len(args) < 3 {
+	if len(args) < 4 {
 		fmt.Println("There are no parameters enough to run monitor")
 		os.Exit(1)
 	}
 
-	cmd := exec.Command(args[1], args[2:]...)
+	mili, err := strconv.Atoi(args[1])
+	if err != nil {
+		fmt.Println("Unexpected value for monitor time:", args[1])
+		os.Exit(1)
+	}
+
+	cmd := exec.Command(args[2], args[3:]...)
 	cmd.Stdout = os.Stdout
 
 	go func() {
-		ticker := time.NewTicker(200 * time.Millisecond)
+		ticker := time.NewTicker(time.Duration(mili) * time.Millisecond)
 		for range ticker.C {
 			GetMemUsage(cmd.Process.Pid)
 		}
