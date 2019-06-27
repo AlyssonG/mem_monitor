@@ -6,14 +6,10 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"runtime"
 	"time"
 )
 
 var (
-	Alloc   uint64
-	Total   uint64
-	Sys     uint64
 	MemUsed uint64
 	Count   uint64
 )
@@ -43,24 +39,14 @@ func main() {
 	PrintMemUsage()
 }
 
-// PrintMemUsage outputs the current, total and OS memory being used. As well as the number
-// of garage collection cycles completed.
 func GetMemUsage(pid int) {
-	var m runtime.MemStats
-	runtime.ReadMemStats(&m)
-	Alloc += bToKb(m.Alloc)
-	Total += bToKb(m.TotalAlloc)
-	Sys += bToKb(m.Sys)
 	mem, _ := calculateMemory(pid)
 	MemUsed += mem
 	Count++
 }
 
 func PrintMemUsage() {
-	// fmt.Printf("Alloc = %v KiB", bToKb(Alloc/Count))
 	fmt.Printf("MemUsed = %v KB\n", MemUsed/Count)
-	// fmt.Printf("\tTotalAlloc = %v KiB", bToKb(Total/Count))
-	// fmt.Printf("\tSys = %v KiB\n", bToKb(Sys/Count))
 }
 
 func calculateMemory(pid int) (uint64, error) {
@@ -89,8 +75,4 @@ func calculateMemory(pid int) (uint64, error) {
 	}
 
 	return res, nil
-}
-
-func bToKb(b uint64) uint64 {
-	return b / 1024
 }
